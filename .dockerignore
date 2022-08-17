@@ -1,0 +1,7 @@
+/.coverage
+/.env
+/.git
+/.idea
+/.pytest_cache
+/.tox
+/.venv

@@ -1,0 +1,7 @@
+aiosql
+fastapi
+psycopg[binary,pool]
+pydantic[dotenv]
+tenacity
+typer
+uvicorn

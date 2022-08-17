@@ -1,0 +1,26 @@
+version: "3"
+services:
+  api:
+    build: .
+    command: raffle-cli run --host 0.0.0.0
+    depends_on:
+      - postgres
+    environment:
+      - PGDATABASE=postgres
+      - PGHOST=postgres
+      - PGPASSWORD=postgres
+      - PGPORT=5432
+      - PGUSER=postgres
+    ports:
+      - "127.0.0.1:8000:8000"
+  postgres:
+    image: docker.io/postgres:14
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - ./src/raffle/migrations/up.sql:/docker-entrypoint-initdb.d/init.sql:Z
+      - db-data:/var/lib/postgresql/data
+volumes:
+  db-data:
