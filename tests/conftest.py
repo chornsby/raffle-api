@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 
 from raffle import db, deps
 from raffle.api import app
-from raffle.config import Settings
+from raffle.config import Settings, load_settings
 
 pytest_plugins = ["factories"]
 
@@ -21,13 +21,13 @@ def manager_ip() -> str:
 @pytest.fixture(scope="session")
 def settings() -> Settings:
     """Access the local environment settings (needed to set up test database)."""
-    return Settings()
+    return load_settings()
 
 
 @pytest.fixture(scope="session")
 def test_settings(manager_ip) -> Settings:
     """Override the local environment settings for testing."""
-    return Settings(
+    return load_settings(
         db_database="test",
         manager_ip_addresses=[manager_ip],
         verification_code_crypt_algorithm="md5",

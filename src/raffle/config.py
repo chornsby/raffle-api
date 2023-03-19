@@ -32,5 +32,5 @@ class Settings(BaseSettings):
         return f"postgresql://{self.db_user}:{self.db_password.get_secret_value()}@{self.db_host}:{self.db_port}/{self.db_database}"
 
 
-def load_settings() -> Settings:
-    return Settings()
+def load_settings(**kwargs) -> Settings:
+    return Settings(**kwargs)
