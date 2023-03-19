@@ -50,7 +50,7 @@ class RaffleResponse(pydantic.BaseModel):
     prizes: list[PrizeResponse] = pydantic.Field(min_items=1)
 
 
-@app.get("/raffles/", response_model=list[RaffleResponse])
+@app.get("/raffles/")
 def list_raffles(
     conn: psycopg.Connection = Depends(deps.get_conn),
 ) -> list[RaffleResponse]:
@@ -75,7 +75,6 @@ def list_raffles(
 @app.post(
     "/raffles/",
     dependencies=[Depends(deps.is_manager)],
-    response_model=RaffleResponse,
     responses={
         403: {
             "content": {
@@ -130,7 +129,6 @@ def create_raffle(
 
 @app.get(
     "/raffles/{raffle_id}/",
-    response_model=RaffleResponse,
     responses={
         404: {
             "content": {
@@ -171,7 +169,6 @@ class ClaimTicketResponse(pydantic.BaseModel):
 
 @app.post(
     "/raffles/{raffle_id}/participate/",
-    response_model=ClaimTicketResponse,
     responses={
         403: {
             "content": {
@@ -287,7 +284,7 @@ class WinnerResponse(pydantic.BaseModel):
     prize: str = pydantic.Field(..., example="Prize Name")
 
 
-@app.get("/raffles/{raffle_id}/winners/", response_model=list[WinnerResponse])
+@app.get("/raffles/{raffle_id}/winners/")
 def list_winners(
     raffle_id: pydantic.UUID4,
     conn: psycopg.Connection = Depends(deps.get_conn),
@@ -315,7 +312,6 @@ def list_winners(
 @app.post(
     "/raffles/{raffle_id}/winners/",
     dependencies=[Depends(deps.is_manager)],
-    response_model=list[WinnerResponse],
     responses={
         400: {
             "content": {
@@ -413,7 +409,6 @@ class VerifyTicketResponse(pydantic.BaseModel):
 
 @app.post(
     "/raffles/{raffle_id}/verify-ticket/",
-    response_model=VerifyTicketResponse,
     responses={
         200: {
             "content": {
