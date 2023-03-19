@@ -1,7 +1,5 @@
 import uuid
 
-import pytest
-
 
 def test_list_winners_success_response(client, raffle, override_ip, manager_ip):
     with override_ip("127.0.0.1"):

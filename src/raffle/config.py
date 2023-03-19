@@ -29,7 +29,11 @@ class Settings(BaseSettings):
 
     @property
     def db_url(self) -> str:
-        return f"postgresql://{self.db_user}:{self.db_password.get_secret_value()}@{self.db_host}:{self.db_port}/{self.db_database}"
+        return (
+            "postgresql://"
+            f"{self.db_user}:{self.db_password.get_secret_value()}@"
+            f"{self.db_host}:{self.db_port}/{self.db_database}"
+        )
 
 
 def load_settings(**kwargs) -> Settings:
