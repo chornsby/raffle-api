@@ -1,0 +1,6 @@
+[tool.ruff]
+select = ["E", "F", "I"]
+target-version = "py311"
+
+[tool.ruff.isort]
+known-first-party = ["raffle"]
