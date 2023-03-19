@@ -38,7 +38,7 @@ To run the API you will need the following tools:
 
 - [docker](https://docs.docker.com/engine/install/)
 - [docker-compose](https://docs.docker.com/compose/install/)
-- [python3.10](https://www.python.org/downloads/)
+- [python3.11](https://www.python.org/downloads/)
 - [tox](https://tox.wiki/en/latest/install.html)
 
 ```shell
