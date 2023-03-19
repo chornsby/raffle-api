@@ -4,7 +4,7 @@
 #
 #    pip-compile --output-file=requirements/dev.txt requirements/dev.in
 #
-aiosql==6.2
+aiosql==8.0
     # via -r requirements/base.in
 anyio==3.6.1
     # via starlette

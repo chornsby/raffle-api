@@ -250,10 +250,12 @@ def claim_ticket(
             stop=stop_after_attempt(settings.participate_max_attempts),
         ):
             with attempt:
-                ticket_pool = db.queries.fetch_ticket_pool(
-                    conn,
-                    raffle_id=row.raffle_id,
-                    limit=settings.participate_ticket_pool,
+                ticket_pool = list(
+                    db.queries.fetch_ticket_pool(
+                        conn,
+                        raffle_id=row.raffle_id,
+                        limit=settings.participate_ticket_pool,
+                    )
                 )
 
                 if not ticket_pool:
