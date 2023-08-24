@@ -28,7 +28,7 @@ def settings() -> Settings:
 def test_settings(manager_ip) -> Settings:
     """Override the local environment settings for testing."""
     return load_settings(
-        db_database="test",
+        PGDATABASE="test",
         manager_ip_addresses=[manager_ip],
         verification_code_crypt_algorithm="md5",
     )

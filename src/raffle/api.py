@@ -26,28 +26,48 @@ app = FastAPI(title="Raffle API", description=__doc__)
 
 
 class CreatePrizeRequest(pydantic.BaseModel):
-    name: str = pydantic.Field(..., example="Prize Name", min_length=1)
-    amount: pydantic.PositiveInt = pydantic.Field(..., example=1)
+    name: str = pydantic.Field(
+        min_length=1,
+        json_schema_extra={"example": "Prize Name"},
+    )
+    amount: pydantic.PositiveInt = pydantic.Field(json_schema_extra={"example": 1})
 
 
 class CreateRaffleRequest(pydantic.BaseModel):
-    name: str = pydantic.Field(..., example="Raffle Name", min_length=1)
-    total_tickets: pydantic.PositiveInt = pydantic.Field(..., example=100)
-    prizes: list[CreatePrizeRequest] = pydantic.Field(min_items=1)
+    name: str = pydantic.Field(
+        min_length=1,
+        json_schema_extra={"example": "Raffle Name"},
+    )
+    total_tickets: pydantic.PositiveInt = pydantic.Field(
+        json_schema_extra={"example": 100}
+    )
+    prizes: list[CreatePrizeRequest] = pydantic.Field(min_length=1)
 
 
 class PrizeResponse(pydantic.BaseModel):
-    name: str = pydantic.Field(..., example="Prize Name", min_length=1)
-    amount: pydantic.PositiveInt = pydantic.Field(..., example=1)
+    name: str = pydantic.Field(
+        min_length=1,
+        json_schema_extra={"example": "Prize Name"},
+    )
+    amount: pydantic.PositiveInt = pydantic.Field(json_schema_extra={"example": 1})
 
 
 class RaffleResponse(pydantic.BaseModel):
-    raffle_id: pydantic.UUID4 = pydantic.Field(..., example=uuid.uuid4())
-    name: str = pydantic.Field(..., example="Raffle Name", min_length=1)
-    total_tickets: pydantic.PositiveInt = pydantic.Field(..., example=100)
-    available_tickets: pydantic.NonNegativeInt = pydantic.Field(..., example=50)
-    winners_drawn: bool = pydantic.Field(..., example=False)
-    prizes: list[PrizeResponse] = pydantic.Field(min_items=1)
+    raffle_id: pydantic.UUID4 = pydantic.Field(
+        json_schema_extra={"example": uuid.uuid4()}
+    )
+    name: str = pydantic.Field(
+        min_length=1,
+        json_schema_extra={"example": "Raffle Name"},
+    )
+    total_tickets: pydantic.PositiveInt = pydantic.Field(
+        json_schema_extra={"example": 100}
+    )
+    available_tickets: pydantic.NonNegativeInt = pydantic.Field(
+        json_schema_extra={"example": 50}
+    )
+    winners_drawn: bool = pydantic.Field(json_schema_extra={"example": False})
+    prizes: list[PrizeResponse] = pydantic.Field(min_length=1)
 
 
 @app.get("/raffles/")
@@ -163,8 +183,10 @@ def fetch_raffle(
 
 
 class ClaimTicketResponse(pydantic.BaseModel):
-    ticket_number: pydantic.PositiveInt = pydantic.Field(..., example=5)
-    verification_code: str = pydantic.Field(..., example="LDSFIUEN")
+    ticket_number: pydantic.PositiveInt = pydantic.Field(
+        json_schema_extra={"example": 5}
+    )
+    verification_code: str = pydantic.Field(json_schema_extra={"example": "LDSFIUEN"})
 
 
 @app.post(
@@ -280,8 +302,10 @@ def claim_ticket(
 
 
 class WinnerResponse(pydantic.BaseModel):
-    ticket_number: pydantic.PositiveInt = pydantic.Field(..., example=5)
-    prize: str = pydantic.Field(..., example="Prize Name")
+    ticket_number: pydantic.PositiveInt = pydantic.Field(
+        json_schema_extra={"example": 5}
+    )
+    prize: str = pydantic.Field(json_schema_extra={"example": "Prize Name"})
 
 
 @app.get("/raffles/{raffle_id}/winners/")
@@ -398,13 +422,15 @@ def draw_winners(
 
 
 class VerifyTicketRequest(pydantic.BaseModel):
-    ticket_number: pydantic.PositiveInt = pydantic.Field(..., example=5)
-    verification_code: str = pydantic.Field(..., example="LDSFIUEN")
+    ticket_number: pydantic.PositiveInt = pydantic.Field(
+        json_schema_extra={"example": 5}
+    )
+    verification_code: str = pydantic.Field(json_schema_extra={"example": "LDSFIUEN"})
 
 
 class VerifyTicketResponse(pydantic.BaseModel):
-    has_won: bool = pydantic.Field(..., example=True)
-    prize: str | None = pydantic.Field(..., example="Prize Name")
+    has_won: bool = pydantic.Field(json_schema_extra={"example": True})
+    prize: str | None = pydantic.Field(json_schema_extra={"example": "Prize Name"})
 
 
 @app.post(

@@ -2,7 +2,8 @@ import string
 from typing import Literal
 
 import pydantic
-from pydantic import BaseSettings, Field
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
@@ -15,14 +16,13 @@ class Settings(BaseSettings):
     verification_code_length: pydantic.PositiveInt = 8
 
     # database settings
-    db_database: str = Field(..., env="PGDATABASE")
-    db_host: str = Field(..., env="PGHOST")
-    db_password: pydantic.SecretStr = Field(..., env="PGPASSWORD")
-    db_port: str = Field(..., env="PGPORT")
-    db_user: str = Field(..., env="PGUSER")
+    db_database: str = Field(alias="PGDATABASE")
+    db_host: str = Field(alias="PGHOST")
+    db_password: pydantic.SecretStr = Field(alias="PGPASSWORD")
+    db_port: str = Field(alias="PGPORT")
+    db_user: str = Field(alias="PGUSER")
 
-    class Config:
-        env_file = ".env"
+    model_config = SettingsConfigDict(env_file=".env")
 
     def __hash__(self):
         return hash(repr(self))

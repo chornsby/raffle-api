@@ -1,7 +1,8 @@
 aiosql
 fastapi
 psycopg[binary,pool]
-pydantic[dotenv]
+pydantic
+pydantic-settings
 tenacity
 typer
 uvicorn
