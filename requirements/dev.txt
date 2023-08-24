@@ -73,9 +73,12 @@ pytest==7.4.0
     #   -r requirements/test.in
     #   pytest-cov
     #   pytest-mock
+    #   pytest-pikachu
 pytest-cov==4.1.0
     # via -r requirements/test.in
 pytest-mock==3.11.1
+    # via -r requirements/test.in
+pytest-pikachu==1.0.0
     # via -r requirements/test.in
 python-dotenv==1.0.0
     # via pydantic-settings

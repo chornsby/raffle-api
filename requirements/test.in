@@ -3,3 +3,4 @@ httpx
 pytest
 pytest-cov
 pytest-mock
+pytest-pikachu
